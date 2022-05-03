@@ -74,7 +74,7 @@ const ethProvider = (provider: SafeEventEmitterProvider, uiConsole: (...args: un
         version: "1",
         verifyingContract: contractAddress,
         // converts Number to bytes32. pass your chainId instead of 42 if network is not Kovan
-        salt : '0x' + (42).toString(16).padStart(64, '0')
+        salt : '0x' + (137).toString(16).padStart(64, '0')
     };
 
     let userAddress = pubKey[0];
