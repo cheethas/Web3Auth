@@ -88,7 +88,29 @@ const solanaProvider = (provider: SafeEventEmitterProvider, uiConsole: (...args:
     }
   };
 
-  return { getAccounts, getBalance, signMessage, signAndSendTransaction, signTransaction };
+
+  const signTypedMessage = async ():  Promise<void> => {
+    try {
+      const conn = await getConnection();
+      const solWeb3 = new SolanaWallet(provider);
+      const pubKey = await solWeb3.requestAccounts();
+      const blockhash = (await conn.getRecentBlockhash("finalized")).blockhash;
+      const TransactionInstruction = SystemProgram.transfer({
+        fromPubkey: new PublicKey(pubKey[0]),
+        toPubkey: new PublicKey(pubKey[0]),
+        lamports: 0.01 * LAMPORTS_PER_SOL,
+      });
+      const transaction = new Transaction({ recentBlockhash: blockhash, feePayer: new PublicKey(pubKey[0]) }).add(TransactionInstruction);
+      const signedTx = await solWeb3.signTransaction(transaction);
+      signedTx.serialize();
+      uiConsole("signature", signedTx);
+    } catch (error) {
+      console.error("Error", error);
+      uiConsole("error", error);
+    }
+  };
+
+  return { getAccounts, getBalance, signMessage, signAndSendTransaction, signTransaction, signTypedMessage };
 };
 
 export default solanaProvider;

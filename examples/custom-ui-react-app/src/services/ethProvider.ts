@@ -104,7 +104,8 @@ const ethProvider = (provider: SafeEventEmitterProvider, uiConsole: (...args: un
       functionSignature
     };
 
-    const dataToSign = JSON.stringify({
+
+    const dataToSign = {
       types: {
         EIP712Domain: domainType,
         MetaTransaction: metaTransactionType
@@ -112,7 +113,10 @@ const ethProvider = (provider: SafeEventEmitterProvider, uiConsole: (...args: un
       domain: domainData,
       primaryType: "MetaTransaction",
       message: message
-    });
+    };
+    console.log("sx")
+
+    console.log(dataToSign)
 
     try{
       return await (web3.currentProvider as any)?.sendAsync(
