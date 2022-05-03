@@ -5,7 +5,7 @@ import Loader from "./Loader";
 import styles from "../styles/Home.module.css";
 
 const Main = () => {
-  const { provider, login, loginWithWalletConnect, logout, getUserInfo, getAccounts, getBalance, signMessage, isLoading } = useWeb3Auth();
+  const { provider, login, loginWithWalletConnect, logout, getUserInfo, getAccounts, getBalance, signMessage, signTypedMessage, isLoading } = useWeb3Auth();
   const handleLoginWithEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = (e.target as any)[0].value
@@ -24,6 +24,9 @@ const Main = () => {
       </button>
       <button onClick={signMessage} className={styles.card}>
         Sign Message
+      </button>
+      <button onClick={signTypedMessage} className={styles.card}>
+        Sign Typed Message
       </button>
       <button onClick={logout} className={styles.card}>
         Log Out

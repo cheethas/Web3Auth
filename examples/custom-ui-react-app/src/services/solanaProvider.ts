@@ -39,7 +39,11 @@ const solanaProvider = (provider: SafeEventEmitterProvider, uiConsole: (...args:
     }
   };
 
-  return { getAccounts, getBalance, signMessage };
+  const signTypedMessage = async () => {
+    return -1;
+  }
+
+  return { getAccounts, getBalance, signMessage, signTypedMessage };
 };
 
 export default solanaProvider;
